@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,9 +8,11 @@ namespace RacingProject.Server.Models
 {
     public class RaceResult
     {
-        //Key: RaceId,DriverId
+        public int Id { get; set; }
 
+        [Required]
         public int DriverId { get; set; }
+        [Required]
         public int RaceId { get; set; }
 
         public int StartingPosition { get; set; }
