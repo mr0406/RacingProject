@@ -16,7 +16,5 @@ namespace RacingProject.Server.Models
         public int RacingSerieId { get; set; }
 
         public RacingSerie RacingSerie { get; set; }
-
-        public IEnumerable<Driver> Drivers { get; set; }
     }
 }

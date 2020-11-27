@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,9 +11,9 @@ namespace RacingProject.Server.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required, ForeignKey("Driver")]
         public int DriverId { get; set; }
-        [Required]
+        [Required, ForeignKey("Race")]
         public int RaceId { get; set; }
 
         public int StartingPosition { get; set; }

@@ -12,7 +12,5 @@ namespace RacingProject.Server.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-
-        public IEnumerable<Race> Races { get; set; }
     }
 }

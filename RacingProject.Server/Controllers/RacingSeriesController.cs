@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RacingProject.Server.Data;
 using RacingProject.Server.Models;
 using System;
@@ -12,23 +13,23 @@ namespace RacingProject.Server.Controllers
     [Route("[controller]")]
     public class RacingSeriesController : ControllerBase
     {
-        private readonly RacingProjectContext _context;
+        private readonly RacingProjectContext _db;
 
-        public RacingSeriesController(RacingProjectContext context)
+        public RacingSeriesController(RacingProjectContext db)
         {
-            _context = context;
+            _db = db;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<RacingSerie>> Get()
+        public ActionResult<IEnumerable<RacingSerie>> GetAll()
         {
-            return _context.RacingSeries;
+            return _db.RacingSeries;
         }
 
         [HttpGet("{id}")]
         public ActionResult<RacingSerie> GetById(int id)
         {
-            var racingSerie = _context.RacingSeries.Find(id);
+            var racingSerie = _db.RacingSeries.Find(id);
 
             if(racingSerie == null)
             {
@@ -41,8 +42,8 @@ namespace RacingProject.Server.Controllers
         [HttpPost]
         public ActionResult<RacingSerie> Create(RacingSerie racingSerie)
         {
-            _context.RacingSeries.Add(racingSerie);
-            _context.SaveChanges();
+            _db.RacingSeries.Add(racingSerie);
+            _db.SaveChanges();
 
             return Ok(racingSerie);
         }
@@ -50,7 +51,7 @@ namespace RacingProject.Server.Controllers
         [HttpPut("{id}")]
         public ActionResult<RacingSerie> Update(int id, RacingSerie newRacingSerie)
         {
-            var oldRacingSerie = _context.RacingSeries.Find(id);
+            var oldRacingSerie = _db.RacingSeries.Find(id);
 
             if(oldRacingSerie == null)
             {
@@ -58,11 +59,27 @@ namespace RacingProject.Server.Controllers
             }
 
             oldRacingSerie.Name = newRacingSerie.Name;
-            oldRacingSerie.Races = newRacingSerie.Races;
 
-            _context.SaveChanges();
+            _db.SaveChanges();
 
             return Ok(newRacingSerie);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var racingSerie = _db.RacingSeries.Find(id);
+
+            if(racingSerie == null)
+            {
+                return NotFound();
+            }
+
+            _db.Remove(racingSerie);
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
     }
 }
