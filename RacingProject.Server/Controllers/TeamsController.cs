@@ -12,6 +12,7 @@ namespace RacingProject.Server.Controllers
     [Route("[controller]")]
     public class TeamsController : ControllerBase
     {
+        private const int PAGE_SIZE = 5;
         private readonly RacingProjectContext _db;
 
         public TeamsController(RacingProjectContext db)
@@ -20,9 +21,11 @@ namespace RacingProject.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Team>> GetAll()
+        public ActionResult<IEnumerable<Team>> Get(int? page)
         {
-            return _db.Teams;
+            int pageNum = page ?? 1;
+
+            return _db.Teams.Skip(PAGE_SIZE * (pageNum - 1)).Take(PAGE_SIZE).ToList();
         }
 
         [HttpGet("{id}")]

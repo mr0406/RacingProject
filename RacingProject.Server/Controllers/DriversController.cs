@@ -12,6 +12,7 @@ namespace RacingProject.Server.Controllers
     [Route("[controller]")]
     public class DriversController : ControllerBase
     {
+        private const int PAGE_SIZE = 5;
         private readonly RacingProjectContext _db;
 
         public DriversController(RacingProjectContext db)
@@ -20,9 +21,13 @@ namespace RacingProject.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Driver>> GetAll()
+        public ActionResult<IEnumerable<Driver>> Get(int? page)
         {
-            return _db.Drivers;
+            int pageNum = page ?? 1;
+
+            var drivers = _db.Drivers.Skip(PAGE_SIZE * (pageNum - 1)).Take(PAGE_SIZE).ToList();
+
+            return drivers;
         }
 
         [HttpGet("{id}")]
