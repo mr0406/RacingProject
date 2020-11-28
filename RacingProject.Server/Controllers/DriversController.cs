@@ -81,6 +81,5 @@ namespace RacingProject.Server.Controllers
 
             return Ok();
         }
-
     }
 }
