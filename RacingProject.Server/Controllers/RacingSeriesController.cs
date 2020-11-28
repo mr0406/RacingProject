@@ -62,7 +62,7 @@ namespace RacingProject.Server.Controllers
 
             _db.SaveChanges();
 
-            return Ok(newRacingSerie);
+            return Ok(oldRacingSerie);
         }
 
         [HttpDelete("{id}")]
