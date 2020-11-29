@@ -25,9 +25,7 @@ namespace RacingProject.Server.Controllers
         {
             int pageNum = page ?? 1;
 
-            var drivers = _db.Drivers.Skip(PAGE_SIZE * (pageNum - 1)).Take(PAGE_SIZE).ToList();
-
-            return drivers;
+            return _db.Drivers.Skip(PAGE_SIZE * (pageNum - 1)).Take(PAGE_SIZE).ToList();
         }
 
         [HttpGet("{id}")]

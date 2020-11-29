@@ -13,6 +13,7 @@ namespace RacingProject.Server.Controllers
     [Route("[controller]")]
     public class RacingSeriesController : ControllerBase
     {
+        private const int PAGE_SIZE = 5;
         private readonly RacingProjectContext _db;
 
         public RacingSeriesController(RacingProjectContext db)
@@ -21,9 +22,11 @@ namespace RacingProject.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<RacingSerie>> GetAll()
+        public ActionResult<IEnumerable<RacingSerie>> Get(int? page)
         {
-            return _db.RacingSeries;
+            int pageNum = page ?? 1;
+
+            return _db.RacingSeries.Skip(PAGE_SIZE * (pageNum - 1)).Take(PAGE_SIZE).ToList();
         }
 
         [HttpGet("{id}")]
