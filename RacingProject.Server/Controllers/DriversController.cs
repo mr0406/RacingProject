@@ -21,11 +21,39 @@ namespace RacingProject.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Driver>> Get(int? page)
+        public ActionResult<IndexPackage<Driver>> Get(int? page)
         {
             int pageNum = page ?? 1;
+            if(page < 0)
+            {
+                pageNum = 1;
+            }
 
-            return _db.Drivers.Skip(PAGE_SIZE * (pageNum - 1)).Take(PAGE_SIZE).ToList();
+
+            IndexPackage<Driver> data = new IndexPackage<Driver>();
+
+            data.Entities = _db.Drivers.Skip(PAGE_SIZE * (pageNum - 1)).Take(PAGE_SIZE).ToList();
+            data.ActualPage = pageNum;
+
+            if(pageNum == 1)
+            {
+                data.HasPreviousPage = false;
+            }
+            else
+            {
+                data.HasPreviousPage = true;
+            }
+
+            if( _db.Drivers.Skip(PAGE_SIZE * pageNum).Count() > 0)
+            {
+                data.HasNextPage = true;
+            }
+            else
+            {
+                data.HasNextPage = false;
+            }
+
+            return data;
         }
 
         [HttpGet("{id}")]
