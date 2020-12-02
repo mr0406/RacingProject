@@ -21,11 +21,22 @@ namespace RacingProject.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<RaceResult>> Get(int? page)
+        public ActionResult<IndexPackage<RaceResult>> Get(int? page)
         {
             int pageNum = page ?? 1;
+            if (page < 0)
+            {
+                pageNum = 1;
+            }
 
-            return _db.RaceResults.Skip(PAGE_SIZE * (pageNum - 1)).Take(PAGE_SIZE).ToList();
+            var data = new IndexPackage<RaceResult>();
+
+            data.Entities = _db.RaceResults.Skip(PAGE_SIZE * (pageNum - 1)).Take(PAGE_SIZE).ToList();
+            data.ActualPage = pageNum;
+            data.HasPreviousPage = pageNum != 1;
+            data.HasNextPage = _db.RaceResults.Skip(PAGE_SIZE * pageNum).Count() > 0;
+
+            return data;
         }
 
         [HttpGet("{id}")]
