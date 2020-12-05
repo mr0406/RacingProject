@@ -16,8 +16,6 @@ namespace RacingProject.Server.Controllers
     [Route("[controller]/[action]")]
     public class XMLController : ControllerBase
     {
-        
-
         private readonly RacingProjectContext _db;
         private readonly XmlSerializer xmlSerializer;
         private readonly string _filePath;

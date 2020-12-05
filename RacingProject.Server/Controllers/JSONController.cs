@@ -16,10 +16,12 @@ namespace RacingProject.Server.Controllers
     public class JSONController : ControllerBase
     {
         private readonly RacingProjectContext _db;
+        private readonly string _filePath;
 
         public JSONController(RacingProjectContext db)
         {
             _db = db;
+            _filePath = Environment.CurrentDirectory + "\\XML\\drivers.xml";
         }
 
         [HttpGet]
@@ -34,10 +36,8 @@ namespace RacingProject.Server.Controllers
         [HttpGet]
         public ActionResult<List<Driver>> Drivers()
         {
-            string filePath = Environment.CurrentDirectory + "\\JSON\\drivers.json";
-
             List<Driver> drivers = new List<Driver>();
-            using(StreamReader reader = new StreamReader(filePath))
+            using(StreamReader reader = new StreamReader(_filePath))
             {
                 string readText = reader.ReadToEnd();
                 Debug.WriteLine(readText);
@@ -50,24 +50,21 @@ namespace RacingProject.Server.Controllers
         [HttpPost]
         public ActionResult<List<Driver>> Drivers(Driver newDriver)
         {
-            string filePath = Environment.CurrentDirectory + "\\JSON\\drivers.json";
-
             List<Driver> drivers = new List<Driver>();
-            /*using (StreamReader reader = new StreamReader(filePath))
+            using (StreamReader reader = new StreamReader(_filePath))
             {
                 string readText = reader.ReadToEnd();
-                Debug.WriteLine(readText);
                 if(readText != null)
                 {
                     drivers = JsonConvert.DeserializeObject<List<Driver>>(readText);
                 }
-            }*/
+            }
 
             drivers.Add(newDriver);
 
             string jsonData = JsonConvert.SerializeObject(drivers, Formatting.Indented);
 
-            using(StreamWriter writer = new StreamWriter(filePath))
+            using(StreamWriter writer = new StreamWriter(_filePath))
             {
                 writer.Write(jsonData);
             }
