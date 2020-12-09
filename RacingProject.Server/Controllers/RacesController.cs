@@ -78,7 +78,15 @@ namespace RacingProject.Server.Controllers
             oldRace.Date = newRace.Date;
             oldRace.RacingSerie = newRace.RacingSerie;
 
-            _db.SaveChanges();
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
 
             return Ok(oldRace);
         }
@@ -94,7 +102,15 @@ namespace RacingProject.Server.Controllers
             }
 
             _db.Remove(race);
-            _db.SaveChanges();
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }

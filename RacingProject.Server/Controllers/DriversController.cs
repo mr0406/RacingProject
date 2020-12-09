@@ -56,7 +56,15 @@ namespace RacingProject.Server.Controllers
         public ActionResult<Driver> Create(Driver driver)
         {
             _db.Drivers.Add(driver);
-            _db.SaveChanges();
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
 
             return Ok(driver);
         }
@@ -75,7 +83,15 @@ namespace RacingProject.Server.Controllers
             oldDriver.Surname = newDriver.Surname;
             oldDriver.TeamId = newDriver.TeamId;
 
-            _db.SaveChanges();
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
 
             return Ok(oldDriver);
         }
@@ -91,7 +107,16 @@ namespace RacingProject.Server.Controllers
             }
 
             _db.Drivers.Remove(driver);
-            _db.SaveChanges();
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
 
             return Ok();
         }

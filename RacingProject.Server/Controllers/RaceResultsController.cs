@@ -56,7 +56,16 @@ namespace RacingProject.Server.Controllers
         public ActionResult<RaceResult> Create(RaceResult raceResult)
         {
             _db.RaceResults.Add(raceResult);
-            _db.SaveChanges();
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
 
             return Ok(raceResult);
         }
@@ -77,7 +86,15 @@ namespace RacingProject.Server.Controllers
             oldRaceResult.FinalPosition = newRaceResult.FinalPosition;
             oldRaceResult.ScoredPoints = newRaceResult.ScoredPoints;
 
-            _db.SaveChanges();
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
 
             return Ok(oldRaceResult);
         }
@@ -93,7 +110,16 @@ namespace RacingProject.Server.Controllers
             }
 
             _db.RaceResults.Remove(raceResult);
-            _db.SaveChanges();
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
 
             return Ok();
         }

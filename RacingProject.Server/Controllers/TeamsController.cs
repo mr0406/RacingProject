@@ -56,7 +56,15 @@ namespace RacingProject.Server.Controllers
         public ActionResult<Team> Create(Team team)
         {
             _db.Teams.Add(team);
-            _db.SaveChanges();
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok(team);
         }
@@ -74,7 +82,14 @@ namespace RacingProject.Server.Controllers
             oldTeam.Name = newTeam.Name;
             oldTeam.RacingSerieId = oldTeam.RacingSerieId;
 
-            _db.SaveChanges();
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok(oldTeam);
         }
@@ -90,7 +105,15 @@ namespace RacingProject.Server.Controllers
             }
 
             _db.Remove(team);
-            _db.SaveChanges();
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }

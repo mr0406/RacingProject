@@ -57,7 +57,15 @@ namespace RacingProject.Server.Controllers
         public ActionResult<RacingSerie> Create(RacingSerie racingSerie)
         {
             _db.RacingSeries.Add(racingSerie);
-            _db.SaveChanges();
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok(racingSerie);
         }
@@ -74,7 +82,14 @@ namespace RacingProject.Server.Controllers
 
             oldRacingSerie.Name = newRacingSerie.Name;
 
-            _db.SaveChanges();
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok(oldRacingSerie);
         }
@@ -90,7 +105,15 @@ namespace RacingProject.Server.Controllers
             }
 
             _db.Remove(racingSerie);
-            _db.SaveChanges();
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }

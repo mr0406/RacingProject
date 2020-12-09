@@ -28,7 +28,7 @@ namespace RacingProject.Server.Controllers
 
                           "FancyData/TeamWithMostDrivers - GET \n" +
                           "FancyData/DriversWithTeamsWithRacingSeries - GET \n" +
-                          "FancyData/RaceResultsWithInfo - GET \n;
+                          "FancyData/RaceResultsWithInfo - GET \n";
             return text;
         }
 
