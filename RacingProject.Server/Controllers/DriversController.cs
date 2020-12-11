@@ -10,6 +10,9 @@ namespace RacingProject.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
+    //Wyswietlic wykres w ilu wyscigach kierowca bral udzial
+
     public class DriversController : ControllerBase
     {
         private const int PAGE_SIZE = 5;

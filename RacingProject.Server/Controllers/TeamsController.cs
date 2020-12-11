@@ -10,6 +10,9 @@ namespace RacingProject.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
+    //na wykresie pokazac ktory team ilu ma kierowcow
+
     public class TeamsController : ControllerBase
     {
         private const int PAGE_SIZE = 5;

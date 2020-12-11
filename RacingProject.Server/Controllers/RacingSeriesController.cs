@@ -11,6 +11,9 @@ namespace RacingProject.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
+    //pokazac ile jest teamow w kazdej seri wyscigowej
+
     public class RacingSeriesController : ControllerBase
     {
         private const int PAGE_SIZE = 5;

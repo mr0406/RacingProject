@@ -10,6 +10,9 @@ namespace RacingProject.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
+    //pokazac ktory wyscig ile ma okrazen
+
     public class RacesController : ControllerBase
     {
         private const int PAGE_SIZE = 5;
@@ -73,7 +76,7 @@ namespace RacingProject.Server.Controllers
 
             oldRace.RacingSeriesId = newRace.RacingSeriesId;
             oldRace.Country = newRace.Country;
-            oldRace.City = newRace.City;
+            oldRace.Name = newRace.Name;
             oldRace.NumberOfLaps = newRace.NumberOfLaps;
             oldRace.Date = newRace.Date;
             oldRace.RacingSerie = newRace.RacingSerie;

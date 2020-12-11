@@ -10,6 +10,9 @@ namespace RacingProject.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
+    //narysowac wykres ile razy ktos byl piewszy w wyscigu
+
     public class RaceResultsController : ControllerBase
     {
         private const int PAGE_SIZE = 5;

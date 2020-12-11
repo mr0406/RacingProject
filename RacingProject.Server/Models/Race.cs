@@ -14,7 +14,7 @@ namespace RacingProject.Server.Models
         [Required, ForeignKey("Team")]
         public int RacingSeriesId { get; set; }
         public string Country { get; set; }
-        public string City { get; set; }
+        public string Name { get; set; }
         public int NumberOfLaps { get; set; }
 
         public DateTime Date { get; set; }
