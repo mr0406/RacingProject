@@ -22,6 +22,49 @@ namespace RacingProject.Server.Controllers
         }
 
         [HttpGet]
+        public ActionResult<List<ChartElement>> Drivers()
+        {
+            var chartElements = _db.RaceResults
+                                   .Where(rR => rR.FinalPosition == 1)
+                                   .GroupBy(rR => rR.DriverId)
+                                   .Select(group => new
+                                   {
+                                       DriverId = group.Key,
+                                       NumOfWins = group.Count()
+                                   })
+                                   .Join(_db.Drivers, x => x.DriverId, driver => driver.Id, (x, driver) =>
+                                   new ChartElement(driver.Surname, x.NumOfWins)).ToList();
+
+            return chartElements;
+        }
+
+        public ActionResult<List<ChartElement>> RaceResults()
+        {
+            int raceId = _db.Races.OrderBy(x => x.Date).First().Id; //Austrian GP
+
+            var chartElements = _db.RaceResults
+                                   .Where(x => x.RaceId == raceId)
+                                   .OrderByDescending(p => p.ScoredPoints)
+                                   .Join(_db.Drivers, y => y.DriverId, driver => driver.Id, (y, driver) =>
+                                   new ChartElement(driver.Firstname + " " + driver.Surname, y.ScoredPoints)).ToList();
+       
+            return chartElements;
+        }
+
+        public ActionResult<List<ChartElement>> Races()
+        {
+            var chartElements = new List<ChartElement>();
+            
+            foreach(var race in _db.Races)
+            {
+                chartElements.Add(new ChartElement(race.Name, race.NumberOfLaps));
+            }
+
+            return chartElements;
+        }
+
+
+        [HttpGet]
         public ActionResult<List<ChartElement>> Teams()
         {
             var chartElements = _db.Drivers
