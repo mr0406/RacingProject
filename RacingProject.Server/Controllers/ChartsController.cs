@@ -36,5 +36,21 @@ namespace RacingProject.Server.Controllers
 
             return chartElements;
         }
+
+        [HttpGet]
+        public ActionResult<List<ChartElement>> RacingSeries()
+        {
+            var chartElements = _db.Teams
+                                   .GroupBy(team => team.RacingSerieId)
+                                   .Select(group => new
+                                   {
+                                       RacingSerieId = group.Key,
+                                       NumOfTeams = group.Count()
+                                   })
+                                   .Join(_db.RacingSeries, x => x.RacingSerieId, rS => rS.Id, (x, rS) =>
+                                   new ChartElement(rS.Name, x.NumOfTeams)).ToList();
+
+            return chartElements;
+        }
     }
 }
