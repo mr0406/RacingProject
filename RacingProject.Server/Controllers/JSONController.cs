@@ -21,7 +21,7 @@ namespace RacingProject.Server.Controllers
         public JSONController(RacingProjectContext db)
         {
             _db = db;
-            _filePath = Environment.CurrentDirectory + "\\XML\\drivers.xml";
+            _filePath = Environment.CurrentDirectory + "\\JSON\\drivers.json";
         }
 
         [HttpGet]
